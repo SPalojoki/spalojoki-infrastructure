@@ -13,7 +13,7 @@ provider "google" {
 }
 
 module "bigquery" {
-  source = "./modules/bigquery"
+  source = "./modules/dataplatform/bigquery"
 
   gcp_project = var.gcp_project
   analytics_developers = var.analytics_developers

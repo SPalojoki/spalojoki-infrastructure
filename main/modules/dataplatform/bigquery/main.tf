@@ -43,6 +43,17 @@ resource "google_bigquery_dataset" "production_datasets" {
     }
 }
 
+# Shared (prod + dev) landing dataset
+resource "google_bigquery_dataset" "landing_dataset" {
+    dataset_id = "analytics__landing"
+    project    = var.gcp_project
+    location   = "EU"
+
+    labels = {
+        environment = "shared"
+    }
+}
+
 # Service account for production DBT usage (CI/CD, etc.)
 resource "google_service_account" "dbt_prod_service_account" {
   account_id   = "dbt-prod"
