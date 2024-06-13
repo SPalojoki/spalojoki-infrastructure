@@ -1,11 +1,11 @@
 provider "google" {
-  project = "wise-key-423412-q8"
-  region  = "europe-north1"
-  zone    = "europe-north1-a"
+  project = var.gcp_project
+  region  = var.gcp_region
+  zone    = var.gcp_zone
 }
 
-resource "google_storage_bucket" "spalojoki_infrastructure_bucket" {
-  name     = "spalojoki-infrastructure-bucket"
-  location = "EU"
+resource "google_storage_bucket" "infrastructure_bucket" {
+  name     = var.spalojoki_infra_bucket
+  location = var.spalojoki_infra_bucket_location
   force_destroy = true
 }
