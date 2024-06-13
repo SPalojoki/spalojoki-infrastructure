@@ -1,7 +1,8 @@
 terraform {
   backend "gcs" {
-    bucket = var.spalojoki_infra_bucket
-    prefix = var.tf_state_bucket_path
+    # Variables not allowed here...
+    bucket = "spalojoki-infrastructure-bucket" 
+    prefix = "terraform/state"
   }
 }
 
