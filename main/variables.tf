@@ -12,6 +12,11 @@ variable "gcp_zone" {
     default = "europe-north1a"
 }
 
+variable "gcp_location" {
+    description = "GCP location"
+    default = "EU"
+}
+
 variable "spalojoki_infra_bucket" {
     description = "Name of the GCP bucket used to store infra related files, for instance remote Terraform state"
     default = "spalojoki-infrastructure-bucket"
@@ -20,4 +25,10 @@ variable "spalojoki_infra_bucket" {
 variable "tf_state_bucket_path" {
     description = "File path the TF remote state is saved to in the GCS bucket"
     default = "terraform/state"
+}
+
+variable "analytics_developers" {
+    description = "List of developers"
+    type    = list(string)
+    default = []
 }
