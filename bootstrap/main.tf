@@ -6,6 +6,6 @@ provider "google" {
 
 resource "google_storage_bucket" "infrastructure_bucket" {
   name     = var.spalojoki_infra_bucket
-  location = var.spalojoki_infra_bucket_location
+  location = "EU"
   force_destroy = true
 }
