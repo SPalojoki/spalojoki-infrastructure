@@ -32,3 +32,12 @@ variable "analytics_developers" {
     type    = list(string)
     default = []
 }
+
+variable "importer_schedules" {
+  description = "A list of schedules to create for the importer functions."
+  type = list(object({
+    name        = string
+    schedule    = string
+  }))
+  default = []
+}
