@@ -1,0 +1,1 @@
+# SPalojoki Infrastructure Ansible

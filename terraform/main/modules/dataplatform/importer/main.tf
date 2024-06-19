@@ -39,7 +39,7 @@ resource "google_project_iam_member" "service_account_user_binding" {
 resource "google_pubsub_topic" "importer_function_schedule_topic" {
   for_each = { for schedule in var.importer_schedules : schedule.name => schedule }
 
-  name = "${each.value.name}-topic"
+  name = "${each.value.name}"
 }
 
 resource "google_cloud_scheduler_job" "importer_function_schedule" {
