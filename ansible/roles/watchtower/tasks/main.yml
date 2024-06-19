@@ -1,0 +1,15 @@
+- name: Ensure /srv/watchtower directory exists
+  file:
+    path: /srv/watchtower
+    state: directory
+    mode: '0755'
+
+- name: Copy Watchtower docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /srv/watchtower/docker-compose.yml
+
+- name: Start Watchtower container
+  command: docker compose up -d
+  args:
+    chdir: /srv/watchtower

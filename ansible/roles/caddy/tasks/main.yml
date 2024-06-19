@@ -1,0 +1,20 @@
+- name: Ensure /srv/caddy directory exists
+  file:
+    path: /srv/caddy
+    state: directory
+    mode: '0755'
+
+- name: Copy Caddy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /srv/caddy/docker-compose.yml
+
+- name: Copy Caddyfile
+  copy:
+    src: "{{ caddyfile_file }}"
+    dest: /srv/caddy/Caddyfile
+
+- name: Start Caddy container
+  command: docker compose up -d
+  args:
+    chdir: /srv/caddy

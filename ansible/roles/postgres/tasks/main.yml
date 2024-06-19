@@ -1,0 +1,36 @@
+- name: Ensure /srv/postgres directory exists
+  file:
+    path: /srv/postgres
+    state: directory
+    mode: '0755'
+
+- name: Copy Postgres Docker Compose template
+  template:
+    src: docker-compose.yml.j2
+    dest: /srv/postgres/docker-compose.yml
+  become: yes
+
+- name: Copy initialization script
+  copy:
+    src: init-db.sh
+    dest: /srv/postgres/init-db.sh
+    mode: '0755'
+  become: yes
+
+- name: Start PostgreSQL container
+  docker_compose:
+    project_src: /srv/postgres
+    state: present
+    restarted: yes
+  become: yes
+
+- name: Wait for PostgreSQL to start
+  wait_for:
+    host: localhost
+    port: 5432
+    state: started
+    delay: 10
+
+- name: Create databases
+  include_tasks: create_databases.yml
+  when: databases is defined
