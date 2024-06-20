@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:{{ postgres_version }}
+  postgres_db:
+    image: postgres
     environment:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
@@ -10,7 +10,6 @@ services:
       - "{{ postgres_port }}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
 
 volumes:
   postgres_data:

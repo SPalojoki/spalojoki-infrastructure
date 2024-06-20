@@ -10,27 +10,7 @@
     dest: /srv/postgres/docker-compose.yml
   become: yes
 
-- name: Copy initialization script
-  copy:
-    src: init-db.sh
-    dest: /srv/postgres/init-db.sh
-    mode: '0755'
-  become: yes
-
-- name: Start PostgreSQL container
-  docker_compose:
-    project_src: /srv/postgres
-    state: present
-    restarted: yes
-  become: yes
-
-- name: Wait for PostgreSQL to start
-  wait_for:
-    host: localhost
-    port: 5432
-    state: started
-    delay: 10
-
-- name: Create databases
-  include_tasks: create_databases.yml
-  when: databases is defined
+- name: Start postgres container
+  command: docker compose up -d
+  args:
+    chdir: /srv/postgres

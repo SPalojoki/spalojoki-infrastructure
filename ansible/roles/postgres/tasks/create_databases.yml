@@ -1,5 +1,0 @@
-- name: Create databases
-  postgresql_db:
-    name: "{{ item }}"
-    state: present
-  loop: "{{ databases }}"

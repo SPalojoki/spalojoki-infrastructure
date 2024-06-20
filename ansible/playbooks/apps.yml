@@ -1,6 +1,11 @@
 - hosts: apps
   become: yes
+  vars_files:
+    - "{{ playbook_dir }}/../vars/apps.yml"
   roles:
-    - common
-    - watchtower
-    - caddy
+    - role: common
+    - role: watchtower
+    - role: caddy
+      vars:
+        caddyfile_file: '{{ playbook_dir }}/../files/apps/Caddyfile'
+    - role: postgres

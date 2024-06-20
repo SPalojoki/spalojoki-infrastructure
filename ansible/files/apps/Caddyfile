@@ -1,0 +1,6 @@
+vastaanotolle.spalojoki.net {
+    handle_path /api/* {
+        reverse_proxy vastaanotolle-backend:3000
+    }
+    reverse_proxy /* vastaanotolle-frontend:80
+}
