@@ -1,0 +1,16 @@
+- name: Ensure /srv/vastaanotolle-app directory exists
+  file:
+    path: /srv/vastaanotolle-app
+    state: directory
+    mode: '0755'
+
+- name: Copy Vastaanotolle Docker Compose template
+  template:
+    src: docker-compose.yml.j2
+    dest: /srv/vastaanotolle-app/docker-compose.yml
+  become: yes
+
+- name: Start postgres container
+  command: docker compose up -d
+  args:
+    chdir: /srv/vastaanotolle-app
