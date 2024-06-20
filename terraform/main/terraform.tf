@@ -27,3 +27,11 @@ module "importer" {
   importer_schedules = var.importer_schedules
   gcp_project = var.gcp_project
 }
+
+module "analytics_compute" {
+  source = "./modules/dataplatform/compute"
+}
+
+module "artifact_registry" {
+  source = "./modules/artifact_registry"
+}
