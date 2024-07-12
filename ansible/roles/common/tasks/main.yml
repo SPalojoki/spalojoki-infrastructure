@@ -55,3 +55,18 @@
   loop:
     - docker.service
     - containerd.service
+
+- name: Ensure Python is installed
+  apt:
+    name: python3
+    state: present
+
+- name: Ensure pip is installed
+  apt:
+    name: python3-pip
+    state: present
+
+- name: Ensure venv is installed
+  apt:
+    name: python3-venv
+    state: present

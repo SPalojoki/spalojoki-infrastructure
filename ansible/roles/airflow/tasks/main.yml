@@ -1,0 +1,39 @@
+- name: Create a Python virtual environment
+  command: python3 -m venv /srv/airflow/venv
+
+- name: Install psycopg2-binary in the virtual environment
+  command: /srv/airflow/venv/bin/pip install psycopg2-binary
+
+- name: Create Airflow Database in PG server
+  community.postgresql.postgresql_db:
+    name: airflow
+    login_host: "127.0.0.1"
+    login_user: "{{postgres_user}}"
+    login_password: "{{postgres_password}}"
+    port: "{{postgres_port}}"
+  vars:
+    ansible_python_interpreter: /srv/airflow/venv/bin/python3
+
+- name: Ensure /srv/airflow directory exists
+  file:
+    path: /srv/airflow
+    state: directory
+    mode: '0755'
+
+- name: Copy Airflow docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /srv/airflow/docker-compose.yml
+
+- name: Start Airflow containers
+  command: docker compose up -d
+  args:
+    chdir: /srv/airflow
+  environment:
+    AIRFLOW_PROJ_DIR: /srv/airflow
+    AIRFLOW_POSTGRES_USER: "{{postgres_user}}"
+    AIRFLOW_POSTGRES_PASSWORD: "{{postgres_password}}"
+    AIRFLOW_UID: "{{ lookup('pipe', 'id -u') }}"
+    _AIRFLOW_WWW_USER_USERNAME: "{{airflow_web_user}}"
+    _AIRFLOW_WWW_USER_PASSWORD: "{{airflow_web_password}}"
+    AIRFLOW_IMAGE_NAME: "{{airflow_image}}"
