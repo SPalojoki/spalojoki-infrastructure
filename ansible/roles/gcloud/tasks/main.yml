@@ -1,0 +1,27 @@
+- name: Ensure /srv/gcloud directory exists
+  file:
+    path: /srv/gcloud
+    state: directory
+    mode: '0755'
+
+- name: Install Google Cloud CLI
+  apt: 
+    name: google-cloud-cli
+    state: present 
+  become: true
+
+# Using Service Account Authentication
+- name: Copy service account key file
+  copy:
+    src: "{{ gcloud_sa_path }}"
+    dest: /srv/gcloud/service_account_key.json
+    mode: '0600'
+
+- name: Initialize gcloud (optional, to set project, region, etc.)
+  shell: "gcloud config set project {{ gcp_project }}"
+  environment:
+    GOOGLE_APPLICATION_CREDENTIALS: /srv/gcloud/service_account_key.json
+
+- name: Authenticate Docker
+  shell: "cat /srv/gcloud/service_account_key.json | docker login -u _json_key --password-stdin https://europe-west1-docker.pkg.dev"
+
