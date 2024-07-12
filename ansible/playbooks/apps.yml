@@ -6,6 +6,3 @@
     - role: common
     - role: watchtower
     - role: caddy
-      vars:
-        caddyfile_file: '{{ playbook_dir }}/../files/apps/Caddyfile'
-    - role: postgres
