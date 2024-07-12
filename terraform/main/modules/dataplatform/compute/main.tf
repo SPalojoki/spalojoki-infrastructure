@@ -1,6 +1,6 @@
-resource "google_compute_instance" "default" {
-  name         = "testing-vm"
-  machine_type = "e2-small"
+resource "google_compute_instance" "spalojoki-vm" {
+  name         = "spalojoki-vm"
+  machine_type = "e2-standard-2"
   zone         = "europe-west1-b"
 
   boot_disk {
