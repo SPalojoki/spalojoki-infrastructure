@@ -9,7 +9,7 @@ This directory contains the Ansible playbooks for VM configuration management an
 Ansible Playbooks, containing various Ansible roles, are the primary units of execution. To execute a playbook on the specified hosts, run the following command:
 
 ```
-ansible-playbook <playbook-name> --ask-become-pass --ask-vault-pass
+ansible-playbook /playbooks/<playbook-name>.yml --ask-become-pass --ask-vault-pass
 ```
 
 - `--ask-become-pass` prompts for the sudo password.
