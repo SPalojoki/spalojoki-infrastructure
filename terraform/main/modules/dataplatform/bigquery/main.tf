@@ -60,6 +60,15 @@ resource "google_service_account" "dbt_prod_service_account" {
   display_name = "DBT CI/CD Service Account"
 }
 
+resource "google_service_account_key" "dbt_prod_sa_key" {
+  service_account_id = google_service_account.dbt_prod_service_account.name
+}
+
+output "dbt_prod_credentials" {
+  value = google_service_account_key.dbt_prod_sa_key.private_key
+  sensitive = true
+}
+
 # Service account for local DBT usage
 resource "google_service_account" "dbt_dev_service_account" {
   account_id   = "dbt-dev"
