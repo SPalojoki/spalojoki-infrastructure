@@ -9,4 +9,6 @@
         gcloud_sa_path: "{{ playbook_dir }}/../files/sak.json"
     - role: postgres
     - role: watchtower
+      vars:
+        watchtower_config_path: "{{ playbook_dir }}/../files/watchtower_config.json"
     - role: airflow

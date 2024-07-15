@@ -9,6 +9,12 @@
     src: docker-compose.yml
     dest: /srv/watchtower/docker-compose.yml
 
+- name: Copy service account key file
+  copy:
+    src: "{{ watchtower_config_path }}"
+    dest: /srv/watchtower/config.json
+    mode: '0600'
+
 - name: Start Watchtower container
   command: docker compose up -d
   args:
