@@ -68,25 +68,14 @@ output "dbt_prod_credentials" {
   value = google_service_account_key.dbt_prod_sa_key.private_key
   sensitive = true
 }
-
-# Service account for local DBT usage
-resource "google_service_account" "dbt_dev_service_account" {
-  account_id   = "dbt-dev"
-  display_name = "DBT Dev Service Account"
+resource "google_project_iam_member" "dbt_prod_bq_dataeditor_binding" {
+  project = var.gcp_project
+  role    = "roles/bigquery.dataEditor"
+  member  = "serviceAccount:${google_service_account.dbt_prod_service_account.email}"
 }
 
-resource "google_bigquery_dataset_iam_member" "dbt_prod_iam_binding" {
-  for_each = { for d in local.prod_datasets : d.id => d }
-
-  dataset_id = each.key
-  role       = "roles/bigquery.dataEditor"
-  member     = "serviceAccount:${google_service_account.dbt_prod_service_account.email}"
-}
-
-resource "google_bigquery_dataset_iam_member" "dbt_dev_iam_binding" {
-  for_each = { for d in local.dev_datasets : d.id => d }
-
-  dataset_id = each.key
-  role       = "roles/bigquery.dataEditor"
-  member     = "serviceAccount:${google_service_account.dbt_dev_service_account.email}"
+resource "google_project_iam_member" "dbt_prod_bq_user_binding" {
+  project = var.gcp_project
+  role    = "roles/bigquery.user"
+  member  = "serviceAccount:${google_service_account.dbt_prod_service_account.email}"
 }
