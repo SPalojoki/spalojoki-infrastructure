@@ -4,6 +4,12 @@ This directory contains the Ansible playbooks for VM configuration management an
 
 ## Usage
 
+Before running anything, make sure you have pulled the latest changes from Github!
+
+```
+git pull
+```
+
 ### Ansible Playbooks
 
 Ansible Playbooks, containing various Ansible roles, are the primary units of execution. To execute a playbook on the specified hosts, run the following command:

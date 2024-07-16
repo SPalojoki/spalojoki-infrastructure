@@ -20,6 +20,12 @@
     state: directory
     mode: '0755'
 
+- name: Copy service account key file
+  copy:
+    src: "{{ bq_sa_path }}"
+    dest: /srv/airflow/dbt_sak.json
+
+
 - name: Copy Airflow docker-compose.yml
   copy:
     src: docker-compose.yml
@@ -37,3 +43,5 @@
     _AIRFLOW_WWW_USER_USERNAME: "{{airflow_web_user}}"
     _AIRFLOW_WWW_USER_PASSWORD: "{{airflow_web_password}}"
     AIRFLOW_IMAGE_NAME: "{{airflow_image}}"
+    AIRFLOW_SECRET: "{{airflow_secret}}"
+    FERNET_KEY: "{{fernet_key}}"

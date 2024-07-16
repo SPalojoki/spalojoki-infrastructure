@@ -6,9 +6,11 @@
     - role: common
     - role: gcloud
       vars:
-        gcloud_sa_path: "{{ playbook_dir }}/../files/sak.json"
+        gcloud_sa_path: "{{ playbook_dir }}/../files/keys/artifactRegistry.json"
     - role: postgres
     - role: watchtower
       vars:
-        watchtower_config_path: "{{ playbook_dir }}/../files/watchtower_config.json"
+        watchtower_config_path: "{{ playbook_dir }}/../files/keys/watchtower_config.json"
     - role: airflow
+      vars:
+        bq_sa_path: "{{ playbook_dir }}/../files/keys/bigquery.json"
