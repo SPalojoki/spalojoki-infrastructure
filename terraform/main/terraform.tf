@@ -19,15 +19,6 @@ module "bigquery" {
   analytics_developers = var.analytics_developers
 }
 
-module "importer" {
-  source = "./modules/dataplatform/importer"
-
-  gcp_location = var.gcp_location
-  gcp_region = var.gcp_region
-  importer_schedules = var.importer_schedules
-  gcp_project = var.gcp_project
-}
-
 module "analytics_compute" {
   source = "./modules/dataplatform/compute"
 }
