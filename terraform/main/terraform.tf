@@ -13,14 +13,14 @@ provider "google" {
 }
 
 module "bigquery" {
-  source = "./modules/dataplatform/bigquery"
+  source = "./modules/bigquery"
 
   gcp_project = var.gcp_project
   analytics_developers = var.analytics_developers
 }
 
-module "analytics_compute" {
-  source = "./modules/dataplatform/compute"
+module "gcloud_compute" {
+  source = "./modules/compute"
 }
 
 module "artifact_registry" {
