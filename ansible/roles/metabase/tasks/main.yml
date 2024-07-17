@@ -1,0 +1,34 @@
+- name: Create a Python virtual environment
+  command: python3 -m venv /srv/metabase/venv
+
+- name: Install psycopg2-binary in the virtual environment
+  command: /srv/metabase/venv/bin/pip install psycopg2-binary
+
+- name: Create Metabase Database in PG server
+  community.postgresql.postgresql_db:
+    name: metabaseappdb
+    login_host: "127.0.0.1"
+    login_user: "{{postgres_user}}"
+    login_password: "{{postgres_password}}"
+    port: "{{postgres_port}}"
+  vars:
+    ansible_python_interpreter: /srv/metabase/venv/bin/python3
+
+- name: Ensure /srv/metabase directory exists
+  file:
+    path: /srv/metabase
+    state: directory
+    mode: '0755'
+
+- name: Copy Metabase docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /srv/metabase/docker-compose.yml
+
+- name: Start Metabase container
+  command: docker compose up -d
+  args:
+    chdir: /srv/metabase
+  environment:
+    POSTGRES_USER: "{{postgres_user}}"
+    POSTGRES_PASSWORD: "{{postgres_password}}"
