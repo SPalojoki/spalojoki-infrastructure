@@ -26,4 +26,6 @@ module "gcloud_compute" {
 
 module "artifact_registry" {
   source = "./modules/artifact_registry"
+
+  gcp_project = var.gcp_project
 }

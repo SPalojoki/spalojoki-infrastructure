@@ -1,3 +1,7 @@
+output "artifact_registry_url" {
+  value = module.artifact_registry.artifact_registry_url
+}
+
 output "container_pusher_credentials" {
   value = module.artifact_registry.container_pusher_credentials
   sensitive = true
