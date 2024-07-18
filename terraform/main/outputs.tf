@@ -1,14 +1,14 @@
-output "github_action_artifact_credentials" {
-  value = module.artifact_registry.github_action_artifact_credentials
+output "container_pusher_credentials" {
+  value = module.artifact_registry.container_pusher_credentials
   sensitive = true
 }
 
-output "reader_artifact_credentials" {
-  value = module.artifact_registry.reader_artifact_credentials
+output "container_puller_credentials" {
+  value = module.artifact_registry.container_puller_credentials
   sensitive = true
 }
 
-output "dbt_prod_credentials" {
-  value = module.bigquery.dbt_prod_credentials
+output "analytics_prod_credentials" {
+  value = module.bigquery.analytics_prod_credentials
   sensitive = true
 }
