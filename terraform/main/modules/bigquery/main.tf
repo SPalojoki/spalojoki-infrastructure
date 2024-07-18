@@ -16,14 +16,13 @@ locals {
     ])
 }
 
-
 # Loops over the local variables above to create individual developer datasets as well as production datasets.
 resource "google_bigquery_dataset" "developer_datasets" {
     for_each = { for d in local.dev_datasets : d.id => d }
 
     dataset_id = each.key
     project    = var.gcp_project
-    location   = "EU"
+    location   = var.gcp_location
 
     labels = {
         developer = each.value.developer
@@ -36,7 +35,7 @@ resource "google_bigquery_dataset" "production_datasets" {
 
     dataset_id = each.key
     project    = var.gcp_project
-    location   = "EU"
+    location   = var.gcp_location
 
     labels = {
         environment = "production"
@@ -47,35 +46,9 @@ resource "google_bigquery_dataset" "production_datasets" {
 resource "google_bigquery_dataset" "landing_dataset" {
     dataset_id = "analytics__landing"
     project    = var.gcp_project
-    location   = "EU"
+    location   = var.gcp_location
 
     labels = {
         environment = "shared"
     }
-}
-
-# Service account for production DBT usage (CI/CD, etc.)
-resource "google_service_account" "dbt_prod_service_account" {
-  account_id   = "dbt-prod"
-  display_name = "DBT CI/CD Service Account"
-}
-
-resource "google_service_account_key" "dbt_prod_sa_key" {
-  service_account_id = google_service_account.dbt_prod_service_account.name
-}
-
-output "dbt_prod_credentials" {
-  value = google_service_account_key.dbt_prod_sa_key.private_key
-  sensitive = true
-}
-resource "google_project_iam_member" "dbt_prod_bq_dataeditor_binding" {
-  project = var.gcp_project
-  role    = "roles/bigquery.dataEditor"
-  member  = "serviceAccount:${google_service_account.dbt_prod_service_account.email}"
-}
-
-resource "google_project_iam_member" "dbt_prod_bq_user_binding" {
-  project = var.gcp_project
-  role    = "roles/bigquery.user"
-  member  = "serviceAccount:${google_service_account.dbt_prod_service_account.email}"
 }

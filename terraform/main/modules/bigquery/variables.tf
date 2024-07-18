@@ -7,3 +7,8 @@ variable "analytics_developers" {
 variable "gcp_project" {
     description = "GCP project id"
 }
+
+variable "gcp_location" {
+    description = "GCP location"
+    default = "EU"
+}

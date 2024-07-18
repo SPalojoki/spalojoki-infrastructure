@@ -16,6 +16,7 @@ module "bigquery" {
   source = "./modules/bigquery"
 
   gcp_project = var.gcp_project
+  gcp_location = var.gcp_location
   analytics_developers = var.analytics_developers
 }
 
