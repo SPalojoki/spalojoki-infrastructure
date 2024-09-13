@@ -1,5 +1,5 @@
-gcp_project = "wise-key-423412-q8"
+gcp_project = "spalojoki-infrastructure"
 gcp_region = "europe-north1"
 gcp_zone = "europe-north1a"
-spalojoki_infra_bucket = "spalojoki-infrastructure-bucket"
-terraform_service_account_email="spalojoki-infra-tf@wise-key-423412-q8.iam.gserviceaccount.com"
+infra_bucket_name = "spalojoki-infra-bucket"
+terraform_service_account_email="terraform-admin@spalojoki-infrastructure.iam.gserviceaccount.com"

@@ -11,7 +11,7 @@ variable "gcp_zone" {
     description = "GCP zone within the selected region"
     default = "europe-north1a"
 }
-variable "spalojoki_infra_bucket" {
+variable "infra_bucket_name" {
     description = "Name of the GCP bucket used to store remote Terraform state"
     default = "spalojoki-infrastructure-bucket"
 }

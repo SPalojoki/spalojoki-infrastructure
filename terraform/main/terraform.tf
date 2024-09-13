@@ -1,7 +1,7 @@
 terraform {
   backend "gcs" {
     # Variables not allowed here...
-    bucket = "spalojoki-infrastructure-bucket" 
+    bucket = "spalojoki-infra-bucket" 
     prefix = "terraform/state"
   }
 }
