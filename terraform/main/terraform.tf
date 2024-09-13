@@ -20,10 +20,6 @@ module "bigquery" {
   analytics_developers = var.analytics_developers
 }
 
-module "gcloud_compute" {
-  source = "./modules/compute"
-}
-
 module "artifact_registry" {
   source = "./modules/artifact_registry"
 
