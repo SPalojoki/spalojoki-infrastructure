@@ -20,6 +20,11 @@
     state: directory
     mode: '0755'
 
+- name: Copy Metabase custom Dockerfile for arm64
+  copy:
+    src: Dockerfile
+    dest: /srv/metabase/Dockerfile
+
 - name: Copy Metabase docker-compose.yml
   copy:
     src: docker-compose.yml
