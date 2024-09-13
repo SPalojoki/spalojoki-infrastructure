@@ -4,11 +4,9 @@
     state: directory
     mode: '0755'
 
-- name: Install Google Cloud CLI
-  apt: 
-    name: google-cloud-cli
-    state: present 
-  become: true
+- name: Install Google Cloud CLI (using Snap, requires Ubuntu)
+  ansible.builtin.shell: |
+    snap install google-cloud-cli --classic
 
 # Using Service Account Authentication
 - name: Copy service account key file
