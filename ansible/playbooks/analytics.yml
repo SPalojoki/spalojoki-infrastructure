@@ -1,4 +1,4 @@
-- hosts: analytics
+- hosts: spalojoki-rasp
   become: yes
   vars_files:
     - "{{ playbook_dir }}/../vars/analytics.yml"
