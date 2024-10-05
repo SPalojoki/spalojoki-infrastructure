@@ -15,7 +15,7 @@ git pull
 Ansible Playbooks, containing various Ansible roles, are the primary units of execution. To execute a playbook on the specified hosts, run the following command:
 
 ```
-ansible-playbook /playbooks/<playbook-name>.yml --ask-become-pass --ask-vault-pass
+ansible-playbook playbooks/<playbook-name>.yml --ask-become-pass --ask-vault-pass
 ```
 
 - `--ask-become-pass` prompts for the sudo password.
@@ -62,9 +62,9 @@ Ensure that no unencrypted sensitive files are committed to version control. The
     python3 -m pip install ansible
     ```
 
-3. Add your local system's public SSH key to the authorized keys of the remote. Refer to the section *Granting local-to-remote SSH access* for details.
+3. Add your local system's public SSH key to the `authorized keys` of the remote. Refer to the section *Granting local-to-remote SSH access* for details.
 
-### Adding a New Remote
+### Adding a New Remote to Ansible configuration
 
 After provisioning a new remote VM (e.g., using Terraform on Google Cloud), it must be added to Ansible:
 
@@ -80,13 +80,19 @@ After provisioning a new remote VM (e.g., using Terraform on Google Cloud), it m
               ansible_user: ansible_user
     ```
 
-2. Follow the steps in the section *Granting local-to-remote SSH access* to grant SSH access from local to remote.
+2. Connect to the remote using SSH and create a new user `ansible_user` on the remote:
+
+    ```
+    sudo adduser ansible_user
+    ```
+
+3. Follow the steps in the section *Granting local-to-remote SSH access* to grant SSH access from local to remote.
 
 ### Granting Local-to-Remote SSH Access
 
 Ansible uses SSH connections to run the commands defined in Playbooks. Therefore, your local system's public SSH key must be added to the authorized keys of the remote:
 
-1. List SSH keys on your local system and copy the desired public key to the clipboard:
+1. List SSH keys on your local system and copy the desired *public* key to the clipboard:
 
     ```
     cd ~/.ssh
